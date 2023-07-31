@@ -1,0 +1,98 @@
+import React, { useState } from "react";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Container from "react-bootstrap/Container";
+import { Link } from "react-router-dom";
+
+import { AiOutlineDownload } from "react-icons/ai";
+
+import Button from "react-bootstrap/Button";
+import {
+  AiOutlineHome,
+  AiOutlineFundProjectionScreen,
+  AiOutlineUser,
+} from "react-icons/ai";
+
+import { MdDeveloperMode } from "react-icons/md";
+
+
+
+function NavBar() {
+  const [expand, updateExpanded] = useState(false);
+  const [navColour, updateNavbar] = useState(false);
+
+  function scrollHandler() {
+    if (window.scrollY >= 20) {
+      updateNavbar(true);
+    } else {
+      updateNavbar(false);
+    }
+  }
+
+  window.addEventListener("scroll", scrollHandler);
+
+  return (
+    <Navbar
+      expanded={expand}
+      fixed="top"
+      expand="md"
+      className={navColour ? "sticky" : "navbar"}
+    >
+      <Container>
+        <Navbar.Brand href="#" target="_blank">
+          <MdDeveloperMode style={{ marginBottom: "2px" }} /> Graphic Designer
+        </Navbar.Brand>
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          onClick={() => {
+            updateExpanded(expand ? false : "expanded");
+          }}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </Navbar.Toggle>
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="ml-auto" defaultActiveKey="#home">
+            <Nav.Item>
+              <Nav.Link as={Link} to="/" onClick={() => updateExpanded(false)}>
+                <AiOutlineHome style={{ marginBottom: "2px" }} /> Home
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link
+                as={Link}
+                to="/about"
+                onClick={() => updateExpanded(false)}
+              >
+                <AiOutlineUser style={{ marginBottom: "2px" }} /> About
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link
+                as={Link}
+                to="/project"
+                onClick={() => updateExpanded(false)}
+              >
+                <AiOutlineFundProjectionScreen
+                  style={{ marginBottom: "2px" }}
+                />{" "}
+                Projects
+              </Nav.Link>
+            </Nav.Item>
+
+            
+          </Nav>
+          <Button variant="primary" href="https://drive.google.com/file/d/1AcVmQcXkoagjLFrfvlaDT4vsoLkohgyE/view?usp=sharing" target="_blank" className="download-button">
+            <AiOutlineDownload />
+            &nbsp;Download CV
+          </Button>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+}
+
+export default NavBar;
